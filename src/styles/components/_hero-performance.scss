@@ -1,0 +1,45 @@
+@use "../abstracts/tokens" as *;
+
+.pt-hero-bg-fallback {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 78% 24%, rgba(96, 165, 250, 0.22), transparent 30%),
+    radial-gradient(circle at 16% 78%, rgba(168, 85, 247, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 23, 1), rgba(5, 8, 22, 1));
+}
+
+.pt-hero-fallback-line {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.22), transparent);
+  transform: rotate(-8deg);
+}
+
+.pt-hero-fallback-line.line-one {
+  top: 30%;
+}
+
+.pt-hero-fallback-line.line-two {
+  top: 46%;
+  opacity: 0.8;
+}
+
+.pt-hero-fallback-line.line-three {
+  top: 62%;
+  opacity: 0.55;
+}
+
+.services-hyre-section,
+.pt-industries,
+.partners-section,
+.resources-section,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}

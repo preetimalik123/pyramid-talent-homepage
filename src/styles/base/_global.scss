@@ -1,0 +1,13 @@
+@use "../abstracts/tokens" as *;
+
+:root {
+  --pt-bg: #{$color-bg};
+  --pt-text: #{$color-text};
+  --pt-accent: #{$color-accent};
+  --pt-muted: #{$color-muted};
+}
+
+.app {
+  min-height: 100vh;
+  background: $color-bg;
+}

@@ -1,0 +1,41 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+.split-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 72px;
+  align-items: start;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(40px, 5vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+  }
+
+  p {
+    color: $color-muted;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  @include respond(laptop) {
+    grid-template-columns: 1fr;
+  }
+
+  @include respond(tablet) {
+    h2 {
+      font-size: 40px;
+      letter-spacing: -2px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+.intro-section {
+  padding-top: 140px;
+}

@@ -1,0 +1,6 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+button {
+  @include button-reset;
+}

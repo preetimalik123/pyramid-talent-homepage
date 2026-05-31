@@ -1,0 +1,17 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding: 40px 8% 120px;
+
+  @include respond(laptop) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond(tablet) {
+    grid-template-columns: 1fr;
+  }
+}

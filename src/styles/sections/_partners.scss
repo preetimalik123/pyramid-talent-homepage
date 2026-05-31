@@ -1,0 +1,175 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+.partners-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(120px, 10vw, 160px) 0 clamp(96px, 8vw, 132px);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(96, 165, 250, 0.13), transparent 32%),
+    radial-gradient(circle at 12% 72%, rgba(168, 85, 247, 0.09), transparent 34%),
+    linear-gradient(180deg, $color-bg 0%, $color-bg-soft 54%, $color-bg 100%);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    @include section-grid-background(0.42, 86px);
+
+    mask-image: radial-gradient(circle at center, black, transparent 78%);
+  }
+
+  .section-header {
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto clamp(40px, 5vw, 60px);
+
+    h2 {
+      max-width: 1060px;
+      margin: 0;
+      font-size: clamp(44px, 6vw, 88px);
+      line-height: 0.94;
+      letter-spacing: -4px;
+    }
+  }
+
+  @include respond(tablet) {
+    padding: 86px 0;
+
+    .section-header {
+      width: calc(100% - 48px);
+      margin-bottom: 36px;
+
+      h2 {
+        font-size: 40px;
+        line-height: 0.98;
+        letter-spacing: -2px;
+      }
+    }
+  }
+}
+
+
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(30px, 4vw, 48px) 0;
+  border-block: 1px solid rgba(255, 255, 255, 0.075);
+  background:
+    radial-gradient(circle at 24% 50%, rgba(147, 197, 253, 0.055), transparent 28%),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.006),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    width: 18vw;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, $color-bg 6%, rgba(2, 6, 23, 0.72), transparent);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(270deg, $color-bg 6%, rgba(2, 6, 23, 0.72), transparent);
+  }
+
+  &:hover {
+    .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: clamp(52px, 7vw, 112px);
+  padding-inline: clamp(40px, 5vw, 80px);
+  animation: partner-logo-marquee 42s linear infinite;
+}
+
+.partner-logo-card {
+  flex: 0 0 auto;
+  width: clamp(120px, 10vw, 170px);
+  height: 58px;
+  display: grid;
+  place-items: center;
+  opacity: 0.9;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+
+  img {
+    display: block;
+    max-width: 100%;
+  
+    filter: brightness(0) invert(1);
+    opacity: .9;
+    transition:
+      filter 0.25s ease,
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+
+    img {
+      opacity: 1;
+      filter:
+        brightness(0)
+        invert(1)
+        drop-shadow(0 0 18px rgba(147, 197, 253, 0.3));
+      transform: scale(1.035);
+    }
+  }
+}
+
+@keyframes partner-logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@include respond(tablet) {
+  .marquee {
+    padding: 26px 0;
+  }
+
+  .marquee-track {
+    gap: 44px;
+    padding-inline: 32px;
+    animation-duration: 34s;
+  }
+
+  .partner-logo-card {
+    width: 118px;
+    height: 48px;
+
+    img {
+      max-height: 34px;
+    }
+  }
+}

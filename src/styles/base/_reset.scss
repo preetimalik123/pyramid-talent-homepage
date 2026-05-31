@@ -1,0 +1,32 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: $color-bg;
+  color: $color-text;
+  font-family: $font-main;
+}
+
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  &:focus-visible {
+    @include focus-ring;
+  }
+}

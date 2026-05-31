@@ -1,0 +1,57 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/tokens" as *;
+
+.section {
+  @include section-shell;
+}
+
+.section-kicker {
+  display: block;
+  margin-bottom: 22px;
+  color: $color-accent;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-header {
+  max-width: 900px;
+  margin-bottom: 52px;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(40px, 5vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+  }
+
+  p {
+    color: $color-muted;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  @include respond(tablet) {
+    h2 {
+      font-size: 40px;
+      letter-spacing: -2px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+
+  @include respond(mobile) {
+    h2 {
+      font-size: 36px;
+    }
+  }
+}
+
+.services-hyre-header {
+  .section-header {
+    max-width: inherit;
+    margin-bottom: 0;
+  }
+}

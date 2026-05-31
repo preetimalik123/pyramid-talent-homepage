@@ -1,0 +1,48 @@
+@use "sass:map";
+@use "./tokens" as *;
+
+@mixin respond($breakpoint) {
+  @media (max-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin glass-card($radius: $radius-lg, $border: $color-border) {
+  border-radius: $radius;
+  border: 1px solid $border;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.025)
+    );
+  backdrop-filter: blur(16px);
+}
+
+@mixin section-grid-background($opacity: 0.35, $size: 82px) {
+  background-image:
+    linear-gradient(rgba(147, 197, 253, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(147, 197, 253, 0.035) 1px, transparent 1px);
+  background-size: $size $size;
+  opacity: $opacity;
+}
+
+@mixin button-reset {
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@mixin focus-ring {
+  outline: 2px solid $color-accent;
+  outline-offset: 4px;
+}
+
+@mixin section-shell($padding-y: 120px, $padding-x: 8%) {
+  padding: $padding-y $padding-x;
+
+  @include respond(tablet) {
+    padding: 90px 24px;
+  }
+}
