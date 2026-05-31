@@ -1,4 +1,4 @@
-# Pyramid Talent Homepage Redesign
+# Pyramid Talent Homepage Design
 
 A modern, responsive homepage design for the Pyramid Talent landing page, built using React, Vite, SCSS, Styled Components, Framer Motion, and React Three Fiber.
 
