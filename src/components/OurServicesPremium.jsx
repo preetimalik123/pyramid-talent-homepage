@@ -45,7 +45,7 @@ function ServiceCard({ service, index }) {
       whileInView="show"
       viewport={{
         once: true,
-        amount: 0.35,
+        amount: 0.12,
         margin: "0px 0px -80px 0px",
       }}
       transition={{
