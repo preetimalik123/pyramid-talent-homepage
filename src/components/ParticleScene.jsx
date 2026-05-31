@@ -316,7 +316,7 @@ function createDemandDeliveryShape(centerX = DESKTOP_PARTICLE_CONFIG.deliveryX, 
   ctx.restore();
 
   ctx.font = "900 205px Arial";
-  ctx.fillText("DELIVERY", canvas.width / 2, 1110);
+  ctx.fillText("DELIVER", canvas.width / 2, 1110);
 
   const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
   const points = [];
