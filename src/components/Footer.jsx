@@ -6,8 +6,8 @@ const socials = [
 ];
 
 const audienceLinks = [
-  { label: "For Job Seekers", href: "#" },
-  { label: "For Employers", href: "#" },
+  { label: "For Job Seekers", href: "https://pyramidci.com/job-seeker/" },
+  { label: "For Employers", href: "https://pyramidci.com/talent-hire-page/" },
 ];
 
 const companyLinks = ["About Us", "Resources", "Contact Us", "Careers"];

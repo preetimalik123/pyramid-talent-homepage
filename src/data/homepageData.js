@@ -136,18 +136,15 @@ export const resources = [
 
 export const nextStep = {
   kicker: "Next Step",
-  title: "Ready to connect workforce demand with qualified talent?",
+  title: "We can transform the future, together!",
   description:
-    "Whether you are hiring for critical projects or exploring your next role, Pyramid Talent helps create the path forward.",
+    "Let's collaborate to nurture people-centric solutions that match your needs, culture, and goals.",
   actions: [
     {
       label: "Start a Conversation",
-      className: "next-step-primary",
-    },
-    {
-      label: "Explore Opportunities",
-      className: "next-step-secondary",
-    },
+      className: "Contact Us",
+    }
+    
   ],
   cards: [
     {

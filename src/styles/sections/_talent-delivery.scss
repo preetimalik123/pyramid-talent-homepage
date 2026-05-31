@@ -7,7 +7,6 @@
   height: 340vh;
   margin-bottom: clamp(90px, 10vh, 150px);
   background: transparent;
-  border-block: 1px solid rgba(255, 255, 255, 0.06);
 
   @include respond(laptop) {
     height: auto;
@@ -25,27 +24,13 @@
   align-items: center;
   gap: 64px;
   padding: 104px 8% 54px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(2, 6, 23, 0.98) 0%,
-      rgba(2, 6, 23, 0.94) 38%,
-      rgba(2, 6, 23, 0.5) 54%,
-      rgba(2, 6, 23, 0.06) 78%,
-      rgba(2, 6, 23, 0.02) 100%
-    );
 
   @include respond(laptop) {
     position: relative;
     height: auto;
     grid-template-columns: 1fr;
     padding: 100px 7% 110px;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(2, 6, 23, 0.96),
-        rgba(2, 6, 23, 0.62)
-      );
+ 
   }
 
   @include respond(tablet) {
@@ -348,5 +333,84 @@
     .delivery-particle-free {
       transform: translateX(9vw);
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .delivery-split-section {
+    height: auto;
+    margin-bottom: 72px;
+    overflow: hidden;
+  }
+
+  .delivery-split-sticky {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 34px;
+    padding: 84px 24px 78px;
+    overflow: hidden;
+  }
+
+  .delivery-split-shade {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(2, 6, 23, 0.94) 0%,
+        rgba(2, 6, 23, 0.72) 48%,
+        rgba(2, 6, 23, 0.94) 100%
+      );
+  }
+
+  .delivery-split-content {
+    max-width: 100%;
+    justify-self: stretch;
+
+    h2 {
+      font-size: clamp(32px, 10vw, 42px);
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    > p {
+      font-size: 15.5px;
+      line-height: 1.58;
+    }
+  }
+
+  .delivery-split-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .delivery-particle-free {
+    width: 100%;
+    max-width: 100%;
+    min-height: 280px;
+    margin-top: 4px;
+    transform: none !important;
+    overflow: hidden;
+    contain: paint;
+
+    &::after {
+      inset: 0;
+      filter: blur(14px);
+      background:
+        radial-gradient(circle at 50% 48%, rgba(147, 197, 253, 0.09), transparent 48%),
+        radial-gradient(circle at 58% 52%, rgba(192, 132, 252, 0.07), transparent 44%);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .delivery-split-sticky {
+    padding: 78px 20px 72px;
+  }
+
+  .delivery-particle-free {
+    min-height: 250px;
   }
 }

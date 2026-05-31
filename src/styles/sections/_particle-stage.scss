@@ -56,17 +56,6 @@
 
 
 .ux-delivery-section {
-  .delivery-split-sticky {
-    background:
-      linear-gradient(
-        90deg,
-        rgba(2, 6, 23, 0.98) 0%,
-        rgba(2, 6, 23, 0.92) 36%,
-        rgba(2, 6, 23, 0.34) 56%,
-        rgba(2, 6, 23, 0.02) 82%,
-        rgba(2, 6, 23, 0.02) 100%
-      );
-  }
 
   .delivery-split-shade {
     background:
@@ -222,4 +211,104 @@
 .particle-side-label,
 .particle-final-label:not(.ux-final-label) {
   display: none;
+}
+/* =========================================================
+   MOBILE PARTICLE RESPONSIVENESS PATCH
+   Keeps desktop behavior same, centers particle concepts on phones.
+========================================================= */
+
+@media (max-width: 768px) {
+  .particle-stage {
+    overflow-x: clip;
+  }
+
+  .canvasWrap {
+    height: 100svh;
+    min-height: 620px;
+    max-height: 760px;
+    opacity: 0.88;
+    contain: paint;
+
+    &::after {
+      background:
+        radial-gradient(
+          circle at 50% 50%,
+          transparent 0%,
+          rgba(2, 6, 23, 0.1) 42%,
+          rgba(2, 6, 23, 0.5) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(2, 6, 23, 0.28) 0%,
+          rgba(2, 6, 23, 0.06) 42%,
+          rgba(2, 6, 23, 0.4) 100%
+        );
+    }
+  }
+
+  .ux-globe-particle-section,
+  .ux-final-particle-section {
+    min-height: 150vh;
+    padding: 0 24px;
+    overflow: hidden;
+  }
+
+  .ux-final-particle-section {
+    min-height: 165vh;
+  }
+
+  .ux-particle-context {
+    top: 12vh;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+
+    &::before {
+      width: 56px;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      max-width: 100%;
+      font-size: clamp(34px, 10.5vw, 44px);
+      line-height: 0.98;
+      letter-spacing: -2px;
+    }
+
+    p {
+      max-width: 100%;
+      margin-top: 20px;
+      font-size: 15.5px;
+      line-height: 1.62;
+    }
+  }
+
+  .ux-final-frame {
+    height: 100svh;
+    min-height: 620px;
+    pointer-events: none;
+  }
+
+  .ux-particle-pathways {
+    padding-top: 82px;
+  }
+}
+
+@media (max-width: 480px) {
+  .canvasWrap {
+    min-height: 590px;
+    opacity: 0.82;
+  }
+
+  .ux-globe-particle-section {
+    min-height: 138vh;
+  }
+
+  .ux-final-particle-section {
+    min-height: 150vh;
+  }
 }

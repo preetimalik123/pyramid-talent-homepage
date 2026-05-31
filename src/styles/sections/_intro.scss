@@ -38,4 +38,8 @@
 
 .intro-section {
   padding-top: 140px;
+
+  @include respond(tablet){
+    padding-top: 350px;
+  }
 }

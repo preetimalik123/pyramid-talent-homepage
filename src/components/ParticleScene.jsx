@@ -5,11 +5,41 @@ import * as THREE from "three";
 const COUNT = 14000;
 const BIG_COUNT = 1000;
 
-const DELIVERY_X = 10;
-const DELIVERY_TEXT_X = 8.45;
-const GLOBE_X = 8.25;
-const FINAL_LEFT_X = -4.95;
-const FINAL_RIGHT_X = 4.95;
+const DESKTOP_PARTICLE_CONFIG = {
+  deliveryX: 10,
+  globeX: 8.25,
+  finalLeftX: -4.95,
+  finalRightX: 4.95,
+  scatterCenterX: 1.5,
+  scatterSpreadX: 28,
+  scatterSpreadY: 8,
+  scatterSpreadZ: 7,
+  globeRadius: 3.35,
+  cameraX: 1.35,
+  cameraY: 0.08,
+  cameraZ: 15.4,
+  lookAtX: 1.1,
+  pointSize: 0.052,
+  bigPointSize: 0.13,
+};
+
+const MOBILE_PARTICLE_CONFIG = {
+  deliveryX: 0,
+  globeX: 0,
+  finalLeftX: -2.15,
+  finalRightX: 2.15,
+  scatterCenterX: 0,
+  scatterSpreadX: 9,
+  scatterSpreadY: 5.8,
+  scatterSpreadZ: 4.8,
+  globeRadius: 2.35,
+  cameraX: 0,
+  cameraY: 0,
+  cameraZ: 18.8,
+  lookAtX: 0,
+  pointSize: 0.038,
+  bigPointSize: 0.075,
+};
 
 function seededRandom(seed) {
   let value = seed;
@@ -81,7 +111,9 @@ function getIntroProgressFromLayout(layout, scrollY, viewportHeight) {
 
   if (!stage || !delivery) return 0;
 
-  const travelled = Math.max(0, scrollY - stage.top);
+   const startOffset = viewportHeight * 0.4;
+
+  const travelled = Math.max(0, scrollY - stage.top - startOffset);
   const distanceToDelivery = Math.max(
     viewportHeight,
     delivery.top - stage.top - viewportHeight * 0.7
@@ -141,7 +173,7 @@ function useParticleStoryLayout() {
   return layout;
 }
 
-function createScatter(seed = 10, centerX = DELIVERY_X, spreadX = 15, spreadY = 8, spreadZ = 7) {
+function createScatter(seed = 10, centerX = DESKTOP_PARTICLE_CONFIG.deliveryX, spreadX = 15, spreadY = 8, spreadZ = 7) {
   const random = seededRandom(seed);
   const arr = [];
 
@@ -156,7 +188,7 @@ function createScatter(seed = 10, centerX = DELIVERY_X, spreadX = 15, spreadY = 
   return arr;
 }
 
-function createLayeredFlow() {
+function createLayeredFlow(centerX = DESKTOP_PARTICLE_CONFIG.deliveryX) {
   const random = seededRandom(22);
   const arr = [];
 
@@ -176,7 +208,7 @@ function createLayeredFlow() {
       Math.sin(x * 0.5 + layer * 1.4) * 1.05 +
       (random() - 0.5) * 0.55;
 
-    arr.push(DELIVERY_X + x, y + 0.2, z);
+    arr.push(centerX + x, y + 0.2, z);
   }
 
   return arr;
@@ -184,7 +216,7 @@ function createLayeredFlow() {
 
 function createTextShape(lines, options = {}) {
   const {
-    centerX = DELIVERY_X,
+    centerX = DESKTOP_PARTICLE_CONFIG.deliveryX,
     fontSize = 150,
     lineHeight = 170,
     scale = 0.0098,
@@ -244,7 +276,7 @@ function createTextShape(lines, options = {}) {
   return points.slice(0, COUNT * 3);
 }
 
-function createDemandDeliveryShape() {
+function createDemandDeliveryShape(centerX = DESKTOP_PARTICLE_CONFIG.deliveryX, shapeScale = 0.0088) {
   const random = seededRandom(333);
 
   const canvas = document.createElement("canvas");
@@ -288,8 +320,7 @@ function createDemandDeliveryShape() {
 
   const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
   const points = [];
-  const scale = 0.0088;
-  const centerX = DELIVERY_X;
+  const scale = shapeScale;
   const yOffset = 0.02;
 
   for (let y = 0; y < canvas.height; y += 4) {
@@ -320,21 +351,21 @@ function createDemandDeliveryShape() {
 }
 
 
-function createDualTextShape() {
+function createDualTextShape(config = DESKTOP_PARTICLE_CONFIG) {
   const creatingValue = createTextShape(["CREATING", "GREATER", "VALUE"], {
-    centerX: FINAL_LEFT_X,
-    fontSize: 128,
-    lineHeight: 142,
-    scale: 0.0066,
+    centerX: config.finalLeftX,
+    fontSize: config === MOBILE_PARTICLE_CONFIG ? 104 : 128,
+    lineHeight: config === MOBILE_PARTICLE_CONFIG ? 118 : 142,
+    scale: config === MOBILE_PARTICLE_CONFIG ? 0.0056 : 0.0066,
     yOffset: 0.04,
     seed: 121,
   });
 
   const bestTalent = createTextShape(["BEST", "TALENT"], {
-    centerX: FINAL_RIGHT_X,
-    fontSize: 178,
-    lineHeight: 195,
-    scale: 0.0092,
+    centerX: config.finalRightX,
+    fontSize: config === MOBILE_PARTICLE_CONFIG ? 132 : 178,
+    lineHeight: config === MOBILE_PARTICLE_CONFIG ? 150 : 195,
+    scale: config === MOBILE_PARTICLE_CONFIG ? 0.0068 : 0.0092,
     yOffset: 0.03,
     seed: 122,
   });
@@ -357,10 +388,9 @@ function createDualTextShape() {
   return merged;
 }
 
-function createGlobeShape() {
+function createGlobeShape(globeX = DESKTOP_PARTICLE_CONFIG.globeX, radius = DESKTOP_PARTICLE_CONFIG.globeRadius) {
   const random = seededRandom(88);
   const arr = [];
-  const radius = 3.35;
 
   for (let i = 0; i < COUNT; i++) {
     const mode = i % 5;
@@ -395,10 +425,35 @@ function createGlobeShape() {
       z = radius * Math.cos(phi);
     }
 
-    arr.push(GLOBE_X + x, y, z);
+    arr.push(globeX + x, y, z);
   }
 
   return arr;
+}
+
+
+function useResponsiveParticleConfig() {
+  const [isCompact, setIsCompact] = useState(() =>
+    typeof window === "undefined" ? false : window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCompact(window.innerWidth <= 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, []);
+
+  return isCompact ? MOBILE_PARTICLE_CONFIG : DESKTOP_PARTICLE_CONFIG;
 }
 
 
@@ -423,18 +478,19 @@ function usePageVisible() {
 }
 
 function SceneParticles() {
+  const config = useResponsiveParticleConfig();
   const isPageVisible = usePageVisible();
   const storyLayout = useParticleStoryLayout();
   const geometryRef = useRef(null);
   const materialRef = useRef(null);
   const bigMaterialRef = useRef(null);
 
-const scatterStart = useMemo(() => createScatter(11, 1.5, 28, 8, 7), []);
-  const layeredFlow = useMemo(() => createLayeredFlow(), []);
+const scatterStart = useMemo(() => createScatter(11, config.scatterCenterX, config.scatterSpreadX, config.scatterSpreadY, config.scatterSpreadZ), [config]);
+  const layeredFlow = useMemo(() => createLayeredFlow(config.deliveryX), [config]);
 
   const bigPositions = useMemo(
-  () => new Float32Array(createScatter(222, 1.5, 28, 8, 7).slice(0, BIG_COUNT * 3)),
-  []
+  () => new Float32Array(createScatter(222, config.scatterCenterX, config.scatterSpreadX, config.scatterSpreadY, config.scatterSpreadZ).slice(0, BIG_COUNT * 3)),
+  [config]
 );
 
 const bigColors = useMemo(() => {
@@ -454,13 +510,13 @@ const bigColors = useMemo(() => {
   return arr;
 }, []);
 
-  const creatingValueRight = useMemo(() => createDemandDeliveryShape(), []);
+  const creatingValueRight = useMemo(() => createDemandDeliveryShape(config.deliveryX, config === MOBILE_PARTICLE_CONFIG ? 0.0062 : 0.0088), [config]);
 
-  const scatterAfterValue = useMemo(() => createScatter(55, GLOBE_X, 16, 8, 7), []);
-  const globe = useMemo(() => createGlobeShape(), []);
-  const scatterAfterGlobe = useMemo(() => createScatter(77, GLOBE_X, 16, 8, 7), []);
-  const dualValueTalent = useMemo(() => createDualTextShape(), []);
-  const finalScatter = useMemo(() => createScatter(101, 1.2, 18, 8, 7), []);
+  const scatterAfterValue = useMemo(() => createScatter(55, config.globeX, config === MOBILE_PARTICLE_CONFIG ? 8 : 16, config.scatterSpreadY, config.scatterSpreadZ), [config]);
+  const globe = useMemo(() => createGlobeShape(config.globeX, config.globeRadius), [config]);
+  const scatterAfterGlobe = useMemo(() => createScatter(77, config.globeX, config === MOBILE_PARTICLE_CONFIG ? 8 : 16, config.scatterSpreadY, config.scatterSpreadZ), [config]);
+  const dualValueTalent = useMemo(() => createDualTextShape(config), [config]);
+  const finalScatter = useMemo(() => createScatter(101, config.scatterCenterX, config === MOBILE_PARTICLE_CONFIG ? 9 : 18, config.scatterSpreadY, config.scatterSpreadZ), [config]);
 
   const positions = useMemo(() => new Float32Array(scatterStart), [scatterStart]);
   const colors = useMemo(() => new Float32Array(COUNT * 3), []);
@@ -501,7 +557,7 @@ const bigColors = useMemo(() => {
     let to = layeredFlow;
     let local = introProgress;
     let globeVisibility = 0;
-    let targetOpacity = 0.92;
+   let targetOpacity = introProgress > 0.08 ? 0.92 : 0;
 
     if (finalState.active) {
       if (finalState.progress < 0.2) {
@@ -572,13 +628,13 @@ const bigColors = useMemo(() => {
       pos[idx + 1] += shimmer;
 
       if (globeVisibility > 0.02) {
-        const x = pos[idx] - GLOBE_X;
+        const x = pos[idx] - config.globeX;
         const z = pos[idx + 2];
         const angle = time * 0.24 * globeVisibility;
         const cos = Math.cos(angle);
         const sin = Math.sin(angle);
 
-        pos[idx] = GLOBE_X + x * cos - z * sin;
+        pos[idx] = config.globeX + x * cos - z * sin;
         pos[idx + 2] = x * sin + z * cos;
       }
 
@@ -611,12 +667,14 @@ const bigColors = useMemo(() => {
     );
 
     if (bigMaterialRef.current) {
-      const bigIntroFade = 1 - smoothstep((introProgress - 0.28) / 0.46);
-      const shouldShowBigParticles =
-        delivery.before && !delivery.active && !globeState.active && !finalState.active;
+ const bigIntroReveal = smoothstep((introProgress - 0.18) / 0.24);
+const bigIntroFade = 1 - smoothstep((introProgress - 0.72) / 0.22);
 
-   const bigTargetOpacity = shouldShowBigParticles
-  ? 0.72 * bigIntroFade
+const shouldShowBigParticles =
+  delivery.before && !delivery.active && !globeState.active && !finalState.active;
+
+const bigTargetOpacity = shouldShowBigParticles
+  ? 0.58 * bigIntroReveal * bigIntroFade
   : 0;
 
       bigMaterialRef.current.opacity = THREE.MathUtils.lerp(
@@ -626,10 +684,10 @@ const bigColors = useMemo(() => {
       );
     }
 
-    camera.position.z = THREE.MathUtils.lerp(camera.position.z, 15.4, delta * 2);
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, 1.35, delta * 2);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0.08, delta * 2);
-    camera.lookAt(1.1, 0, 0);
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, config.cameraZ, delta * 2);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, config.cameraX, delta * 2);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, config.cameraY, delta * 2);
+    camera.lookAt(config.lookAtX, 0, 0);
   });
 
   return (
@@ -654,9 +712,9 @@ const bigColors = useMemo(() => {
       <pointsMaterial
         ref={materialRef}
         vertexColors
-          size={0.052}
+          size={config.pointSize}
       transparent
-      opacity={0.9}
+      opacity={0}
       depthWrite={false}
       blending={THREE.AdditiveBlending}
       />
@@ -681,7 +739,7 @@ const bigColors = useMemo(() => {
       <pointsMaterial
        ref={bigMaterialRef}
   vertexColors
-  size={0.13}
+  size={config.bigPointSize}
   transparent
   opacity={0}
   depthWrite={false}
@@ -693,9 +751,15 @@ const bigColors = useMemo(() => {
 }
 
 export default function ParticleScene() {
+  const config = useResponsiveParticleConfig();
+
   return (
     <div className="canvasWrap" aria-hidden="true">
-      <Canvas camera={{ position: [1.35, 0.08, 15.4], fov: 58 }} dpr={[1, 1.5]} gl={{ antialias: false, powerPreference: "high-performance" }}>
+      <Canvas
+        camera={{ position: [config.cameraX, config.cameraY, config.cameraZ], fov: config === MOBILE_PARTICLE_CONFIG ? 64 : 58 }}
+        dpr={config === MOBILE_PARTICLE_CONFIG ? [1, 1] : [1, 1.5]}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <ambientLight />
         <SceneParticles />
       </Canvas>

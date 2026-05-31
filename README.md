@@ -9,10 +9,10 @@ The goal of this project is to preserve the original Pyramid Talent content stru
 ## Live Demo
 
 Vercel Deployment:  
-`https://`
+`https://pyramid-talent.vercel.app`
 
 GitHub Repository:  
-`https://github.come`
+`https://github.com/preetimalik123/pyramid-talent-homepage`
 
 ---
 

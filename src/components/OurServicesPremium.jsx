@@ -118,7 +118,7 @@ export default function OurServicesPremium() {
           amount: 0.45,
         }}
         transition={{
-          duration: 0.75,
+          duration: 0.25,
           ease: [0.22, 1, 0.36, 1],
         }}
       >
