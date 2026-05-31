@@ -83,6 +83,11 @@
     text-decoration: none;
     font-size: 18px;
     font-weight: 800;
+
+    svg,
+    span {
+      display: block;
+    }
     box-shadow:
       0 16px 46px rgba(0, 0, 0, 0.24),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -154,51 +159,34 @@
   max-width: 100%;
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  color: rgba(255, 255, 255, 0.74);
   text-decoration: none;
   transition:
-    color 0.24s ease,
-    transform 0.24s ease;
+    transform 0.24s ease,
+    opacity 0.24s ease;
+
+  img {
+    width: min(245px, 74vw);
+    height: auto;
+    max-height: 54px;
+    display: block;
+    object-fit: contain;
+  }
 
   &:hover {
-    color: $color-text;
     transform: translateY(-2px);
+    opacity: 0.92;
+  }
 
-    .footer-logo-mark {
-      box-shadow:
-        0 0 0 1px rgba(147, 197, 253, 0.34),
-        0 18px 58px rgba(147, 197, 253, 0.18);
-    }
+  &:focus-visible {
+    outline: 2px solid rgba(147, 197, 253, 0.8);
+    outline-offset: 6px;
+    border-radius: 12px;
   }
 }
 
-.footer-logo-mark {
-  width: 46px;
-  height: 46px;
-  flex: 0 0 auto;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(191, 219, 254, 0.62));
-  transition: box-shadow 0.24s ease;
-}
-
+.footer-logo-mark,
 .footer-logo-copy {
-  display: grid;
-  gap: 5px;
-
-  strong {
-    color: currentColor;
-    font-size: clamp(32px, 3vw, 48px);
-    line-height: 0.8;
-    letter-spacing: -2px;
-    font-weight: 880;
-  }
-
-  small {
-    color: rgba(255, 255, 255, 0.48);
-    font-size: 11px;
-    letter-spacing: 6px;
-  }
+  display: none;
 }
 
 .footer-brand-rule {
@@ -211,31 +199,49 @@
 .footer-family-logos {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(24px, 4vw, 52px);
+  align-items: center;
+  gap: clamp(22px, 4vw, 46px);
 
-  span {
-    color: rgba(255, 255, 255, 0.35);
-    font-size: clamp(22px, 2vw, 34px);
-    line-height: 0.88;
-    letter-spacing: -1.5px;
-    font-weight: 880;
+  a {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.68;
+    text-decoration: none;
     transition:
-      color 0.24s ease,
-      transform 0.24s ease;
+      opacity 0.24s ease,
+      transform 0.24s ease,
+      filter 0.24s ease;
 
     &:hover {
-      color: rgba(255, 255, 255, 0.72);
+      opacity: 1;
       transform: translateY(-2px);
+      filter: drop-shadow(0 0 18px rgba(147, 197, 253, 0.12));
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(147, 197, 253, 0.75);
+      outline-offset: 6px;
+      border-radius: 10px;
     }
   }
 
-  small {
+  img {
+    width: auto;
+    height: 30px;
+    max-width: 180px;
     display: block;
-    margin-top: 6px;
-    font-size: 10px;
-    letter-spacing: 5px;
-    font-weight: 520;
+    object-fit: contain;
   }
+}
+
+.footer-logo-pyramid {
+  max-height: 54px;
+}
+
+.footer-logo-talent,
+.footer-logo-celsior,
+.footer-logo-genspark {
+  max-height: 30px;
 }
 
 .footer-company-links {
@@ -371,7 +377,17 @@
     grid-template-columns: 1fr;
   }
 
+  .footer-parent-logo img {
+    width: min(220px, 82vw);
+    max-height: 48px;
+  }
+
   .footer-family-logos {
-    gap: 22px;
+    gap: 18px;
+
+    img {
+      height: 25px;
+      max-width: 150px;
+    }
   }
 }

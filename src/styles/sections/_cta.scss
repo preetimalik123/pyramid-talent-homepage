@@ -148,89 +148,22 @@
   gap: 14px;
   margin-top: 38px;
 
-  button {
+  .pt-read-more {
     min-height: 56px;
-    width: auto;
-    padding: 0 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    border-radius: $radius-pill;
-    font-size: 14px;
-    font-weight: 800;
-    transition:
-      transform 0.28s ease,
-      background 0.28s ease,
-      color 0.28s ease,
-      border-color 0.28s ease,
-      box-shadow 0.28s ease;
-
-    @include button-reset;
-
-    &::after {
-      line-height: 1;
-      transition: transform 0.25s ease;
-    }
-
-    &:hover {
-      transform: translateY(-4px);
-    }
   }
 
   @include respond(mobile) {
     flex-direction: column;
 
-    button {
+    .pt-read-more {
       width: 100%;
     }
   }
 }
 
-.next-step-primary {
-  color: $color-bg;
-  background: $color-text;
-  box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.32),
-    0 0 40px rgba(147, 197, 253, 0.18);
-
-  &::after {
-    content: "→";
-    font-size: 18px;
-  }
-
-  &:hover {
-    background: #f8fbff;
-    box-shadow:
-      0 30px 82px rgba(0, 0, 0, 0.38),
-      0 0 52px rgba(147, 197, 253, 0.24);
-
-    &::after {
-      transform: translateX(5px);
-    }
-  }
-}
-
+.next-step-primary,
 .next-step-secondary {
-  color: $color-text;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
-
-  &::after {
-    content: "↗";
-    font-size: 16px;
-  }
-
-  &:hover {
-    border-color: rgba(147, 197, 253, 0.34);
-    background: rgba(147, 197, 253, 0.105);
-    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.28);
-
-    &::after {
-      transform: translate(3px, -3px);
-    }
-  }
+  flex: 0 0 auto;
 }
 
 .next-step-panel {

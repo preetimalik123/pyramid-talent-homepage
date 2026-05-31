@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import SectionHeader from "./common/SectionHeader";
 import { servicesSection } from "../data/homepageData";
+import CTAButton from "./common/CTAButton";
 
 const SERVICE_ICONS = {
   handshake: Handshake,
@@ -15,7 +16,7 @@ const SERVICE_ICONS = {
   usersRound: UsersRound,
   globe: Globe2,
 };
-
+const SERVICES_CTA_LINK = "https://pyramidci.com/talent-hire-page/";
 const cardVariants = {
   hidden: {
     opacity: 0,
@@ -136,10 +137,13 @@ export default function OurServicesPremium() {
       </div>
 
       <div className="services-section-cta-wrap">
-        <button type="button" className="services-section-cta">
-          <span>{servicesSection.ctaLabel}</span>
-          <ArrowRight size={18} strokeWidth={2} />
-        </button>
+        <CTAButton
+          as="a"
+          href={SERVICES_CTA_LINK}
+          className="pt-read-more services-section-cta"
+        >
+          {servicesSection.ctaLabel}
+        </CTAButton>
       </div>
     </section>
   );

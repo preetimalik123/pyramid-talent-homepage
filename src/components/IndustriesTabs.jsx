@@ -18,6 +18,8 @@ import { useState } from "react";
 import CTAButton from "./common/CTAButton";
 import { industriesSection } from "../data/homepageData";
 
+const READ_MORE_LINK = "https://pyramidci.com/talent-hire-page/";
+
 const INDUSTRY_ICONS = {
   building: Building2,
   calendar: CalendarDays,
@@ -68,7 +70,9 @@ function IndustryCard({ industry, activeIndex, total }) {
       exit={{ opacity: 0, y: -18, filter: "blur(10px)" }}
       transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="pt-industry-card-label">{industriesSection.cardLabel}</div>
+      <div className="pt-industry-card-label">
+        {industriesSection.cardLabel}
+      </div>
 
       <div className="pt-industry-card-main">
         <div className="pt-industry-copy">
@@ -118,7 +122,7 @@ function IndustryAccordionPanel({ industry, index, total }) {
         </div>
 
         <div className="pt-mobile-industry-footer">
-          <CTAButton className="pt-read-more">
+          <CTAButton as="a" href={READ_MORE_LINK} className="pt-read-more">
             {industriesSection.readMoreLabel}
           </CTAButton>
 
@@ -137,6 +141,7 @@ export default function IndustriesStickyTabs() {
 
   const industries = industriesSection.industries;
   const activeIndustry = industries[activeIndex];
+
   const activeProgress =
     industries.length > 1 ? (activeIndex / (industries.length - 1)) * 100 : 0;
 
@@ -158,7 +163,11 @@ export default function IndustriesStickyTabs() {
             <p>{industriesSection.description}</p>
           </div>
 
-          <CTAButton className="pt-industries-read-more">
+          <CTAButton
+            as="a"
+            href={READ_MORE_LINK}
+            className="pt-industries-read-more"
+          >
             {industriesSection.readMoreLabel}
           </CTAButton>
         </div>

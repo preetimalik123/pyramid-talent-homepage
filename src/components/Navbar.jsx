@@ -46,11 +46,12 @@ export default function Navbar() {
 
   return (
     <header className="site-nav" aria-label="Primary navigation">
-      <a className="site-nav-brand" href="#home" onClick={closeMenu}>
-        <span className="site-nav-mark" aria-hidden="true" />
-        <span>
-          Pyramid <strong>Talent</strong>
-        </span>
+      <a className="site-nav-brand" href="#home" onClick={closeMenu} aria-label="Pyramid Talent home">
+        <img
+          className="site-nav-logo"
+          src="https://pyramidci.com/wp-content/uploads/2025/08/Frame-1973341695.svg"
+          alt="Pyramid Talent"
+        />
       </a>
 
       <button

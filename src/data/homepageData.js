@@ -369,7 +369,7 @@ export const industriesSection = {
       metrics: [
         {
           icon: "plane",
-          value: "Four",
+          value: "4",
           label: "of the largest airlines in the U.S. supported",
         },
         {
@@ -441,7 +441,7 @@ export const industriesSection = {
       metrics: [
         {
           icon: "zap",
-          value: "Seven",
+          value: "7",
           label: "energy and natural resources industry leaders supported",
         },
         {
@@ -562,7 +562,7 @@ export const industriesSection = {
       metrics: [
         {
           icon: "shoppingBag",
-          value: "Eight",
+          value: "8",
           label: "retail industry leaders supported",
         },
         {

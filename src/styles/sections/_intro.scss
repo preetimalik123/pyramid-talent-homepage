@@ -42,4 +42,7 @@
   @include respond(tablet){
     padding-top: 350px;
   }
+   @include respond(mobile){
+    padding-top: 120px;
+  }
 }

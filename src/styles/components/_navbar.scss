@@ -26,18 +26,10 @@
 .site-nav-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  flex: 0 0 auto;
   color: $color-text;
-  font-size: 14px;
-  font-weight: 760;
-  letter-spacing: 0.2px;
   text-decoration: none;
   white-space: nowrap;
-
-  strong {
-    color: #bfdbfe;
-    font-weight: 760;
-  }
 
   &:focus-visible {
     outline: 2px solid rgba(147, 197, 253, 0.8);
@@ -46,15 +38,16 @@
   }
 }
 
+.site-nav-logo {
+  width: clamp(138px, 13vw, 176px);
+  height: auto;
+  max-height: 38px;
+  display: block;
+  object-fit: contain;
+}
+
 .site-nav-mark {
-  width: 34px;
-  height: 34px;
-  display: inline-block;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.95), transparent 24%),
-    linear-gradient(135deg, #60a5fa, #c084fc);
-  box-shadow: 0 0 24px rgba(96, 165, 250, 0.26);
+  display: none;
 }
 
 .site-nav-links {
@@ -158,6 +151,11 @@
     width: calc(100% - 28px);
     min-height: 58px;
     padding: 8px 10px 8px 16px;
+  }
+
+  .site-nav-logo {
+    width: 142px;
+    max-height: 34px;
   }
 
   .site-nav-toggle {

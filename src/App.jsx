@@ -23,7 +23,7 @@ import LazyOnVisible from "./components/common/LazyOnVisible";
 import usePrefersReducedMotion from "./hooks/usePrefersReducedMotion";
 
 const ParticleScene = lazy(() => import("./components/ParticleScene"));
-const IndustriesStickyTabs = lazy(() => import("./components/IndustriesStickyTabs"));
+const IndustriesTabs = lazy(() => import("./components/IndustriesTabs"));
 const HorizontalProof = lazy(() => import("./components/HorizontalProof"));
 
 export default function App() {
@@ -67,7 +67,7 @@ export default function App() {
           fallback={<div className="section-loader" aria-hidden="true" />}
         >
           <Suspense fallback={<div className="section-loader" aria-hidden="true" />}>
-            <IndustriesStickyTabs />
+            <IndustriesTabs />
           </Suspense>
         </LazyOnVisible>
 

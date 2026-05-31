@@ -2,6 +2,10 @@ import Reveal from "../common/Reveal";
 import CTAButton from "../common/CTAButton";
 import { nextStep } from "../../data/homepageData";
 
+const ACTION_LINKS = {
+  "Start a Conversation": "https://pyramidci.com/talent-contact-us/"
+};
+
 export default function NextStepCTA() {
   return (
     <section className="final-cta next-step-cta" id="contact">
@@ -20,7 +24,12 @@ export default function NextStepCTA() {
 
             <div className="next-step-actions">
               {nextStep.actions.map((action) => (
-                <CTAButton className={action.className} key={action.label}>
+                <CTAButton
+                  as="a"
+                  href={action.href || ACTION_LINKS[action.label] || "#contact"}
+                  className={`pt-read-more ${action.className}`}
+                  key={action.label}
+                >
                   {action.label}
                 </CTAButton>
               ))}
