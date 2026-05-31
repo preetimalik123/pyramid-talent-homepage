@@ -584,7 +584,7 @@ const bigColors = useMemo(() => {
       } else if (globeState.progress < 0.78) {
         from = scatterAfterValue;
         to = globe;
-        local = clamp01((globeState.progress - 0.18) / 0.6);
+        local = clamp01((globeState.progress - 0.18) / 0.5);
         globeVisibility = smoothstep(local);
       } else {
         from = globe;
