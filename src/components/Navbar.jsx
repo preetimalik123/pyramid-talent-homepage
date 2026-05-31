@@ -51,6 +51,9 @@ export default function Navbar() {
           className="site-nav-logo"
           src="https://pyramidci.com/wp-content/uploads/2025/08/Frame-1973341695.svg"
           alt="Pyramid Talent"
+          fetchPriority="high"
+          loading="eager"
+          decoding="sync"
         />
       </a>
 

@@ -20,17 +20,13 @@ const SERVICES_CTA_LINK = "https://pyramidci.com/talent-hire-page/";
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 95,
-    scale: 0.94,
-    rotateX: 7,
-    filter: "blur(16px)",
+    y: 36,
+    scale: 0.98,
   },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
-    rotateX: 0,
-    filter: "blur(0px)",
   },
 };
 
@@ -45,13 +41,13 @@ function ServiceCard({ service, index }) {
       whileInView="show"
       viewport={{
         once: true,
-        amount: 0.12,
+        amount: 0.08,
         margin: "0px 0px -80px 0px",
       }}
       transition={{
         duration: 0.78,
         ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.18,
+        delay: index * 0.06,
       }}
       whileHover={{
         y: -12,
