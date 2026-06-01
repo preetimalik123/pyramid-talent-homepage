@@ -4,7 +4,6 @@ import {
   SearchCheck,
   UsersRound,
   Globe2,
-  ArrowRight,
 } from "lucide-react";
 import SectionHeader from "./common/SectionHeader";
 import { servicesSection } from "../data/homepageData";
@@ -16,49 +15,55 @@ const SERVICE_ICONS = {
   usersRound: UsersRound,
   globe: Globe2,
 };
+
 const SERVICES_CTA_LINK = "https://pyramidci.com/talent-hire-page/";
+
+const headerVariants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
+const gridVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.04,
+    },
+  },
+};
+
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 36,
-    scale: 0.98,
+    y: 32,
+    scale: 0.985,
   },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
+    transition: {
+      duration: 0.34,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
 };
 
-function ServiceCard({ service, index }) {
+function ServiceCard({ service }) {
   const Icon = SERVICE_ICONS[service.icon];
 
   return (
     <motion.article
       className={`services-hyre-card ${service.glow}`}
       variants={cardVariants}
-      initial="hidden"
-      whileInView="show"
-      viewport={{
-        once: true,
-        amount: 0.08,
-        margin: "0px 0px -80px 0px",
-      }}
-      transition={{
-        duration: 0.78,
-        ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.06,
-      }}
-      whileHover={{
-        y: -12,
-        scale: 1.014,
-        rotateX: 2,
-        rotateY: index % 2 === 0 ? -2 : 2,
-        transition: {
-          duration: 0.32,
-          ease: "easeOut",
-        },
-      }}
+    
     >
       <div className="service-card-noise" />
       <div className="service-card-light" />
@@ -69,8 +74,8 @@ function ServiceCard({ service, index }) {
           <motion.div
             className="service-icon-wrap"
             whileHover={{
-              scale: 1.08,
-              rotate: 4,
+              scale: 1.06,
+              rotate: 3,
             }}
             transition={{
               type: "spring",
@@ -100,22 +105,16 @@ export default function OurServicesPremium() {
 
       <motion.div
         className="services-hyre-header"
-        initial={{
-          opacity: 0,
-          y: 36,
-          filter: "blur(12px)",
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          filter: "blur(0px)",
-        }}
+        variants={headerVariants}
+        initial="hidden"
+        whileInView="show"
         viewport={{
           once: true,
-          amount: 0.45,
+          amount: 0.18,
+          margin: "180px 0px -40px 0px",
         }}
         transition={{
-          duration: 0.25,
+          duration: 0.3,
           ease: [0.22, 1, 0.36, 1],
         }}
       >
@@ -126,11 +125,21 @@ export default function OurServicesPremium() {
         />
       </motion.div>
 
-      <div className="services-hyre-grid">
-        {servicesSection.services.map((service, index) => (
-          <ServiceCard service={service} index={index} key={service.title} />
+      <motion.div
+        className="services-hyre-grid"
+        variants={gridVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{
+          once: true,
+          amount: 0.08,
+          margin: "220px 0px -80px 0px",
+        }}
+      >
+        {servicesSection.services.map((service) => (
+          <ServiceCard service={service} key={service.title} />
         ))}
-      </div>
+      </motion.div>
 
       <div className="services-section-cta-wrap">
         <CTAButton

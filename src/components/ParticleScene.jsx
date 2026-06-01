@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 const COUNT = 14000;
-const BIG_COUNT = 1000;
+const BIG_COUNT = 900;
 
 const DESKTOP_PARTICLE_CONFIG = {
   deliveryX: 10,
@@ -531,6 +531,30 @@ const bigColors = useMemo(() => {
     const scrollY = window.scrollY || window.pageYOffset || 0;
     const viewportHeight = storyLayout.current.viewportHeight || window.innerHeight;
 
+    const stage = storyLayout.current.stage;
+    const isNearParticleStage =
+      !stage ||
+      (scrollY > stage.top - viewportHeight * 1.4 &&
+        scrollY < stage.top + stage.height + viewportHeight * 1.2);
+
+    if (!isNearParticleStage) {
+      materialRef.current.opacity = THREE.MathUtils.lerp(
+        materialRef.current.opacity,
+        0,
+        delta * 5
+      );
+
+      if (bigMaterialRef.current) {
+        bigMaterialRef.current.opacity = THREE.MathUtils.lerp(
+          bigMaterialRef.current.opacity,
+          0,
+          delta * 5
+        );
+      }
+
+      return;
+    }
+
     const delivery = getSectionProgressFromLayout(
       storyLayout.current.delivery,
       scrollY,
@@ -557,7 +581,7 @@ const bigColors = useMemo(() => {
     let to = layeredFlow;
     let local = introProgress;
     let globeVisibility = 0;
-   let targetOpacity = introProgress > 0.08 ? 0.92 : 0;
+    let targetOpacity = introProgress > 0.08 ? 0.92 : 0;
 
     if (finalState.active) {
       if (finalState.progress < 0.2) {
@@ -757,8 +781,11 @@ export default function ParticleScene() {
     <div className="canvasWrap" aria-hidden="true">
       <Canvas
         camera={{ position: [config.cameraX, config.cameraY, config.cameraZ], fov: config === MOBILE_PARTICLE_CONFIG ? 64 : 58 }}
-        dpr={config === MOBILE_PARTICLE_CONFIG ? [1, 1] : [1, 1.5]}
+        dpr={config === MOBILE_PARTICLE_CONFIG ? [1, 1] : [1, 1.25]}
         gl={{ antialias: false, powerPreference: "high-performance" }}
+        onCreated={({ gl }) => {
+          gl.setClearAlpha(0);
+        }}
       >
         <ambientLight />
         <SceneParticles />
