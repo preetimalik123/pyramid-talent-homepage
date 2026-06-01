@@ -54,9 +54,7 @@
   }
 }
 
-
 .ux-delivery-section {
-
   .delivery-split-shade {
     background:
       radial-gradient(
@@ -78,15 +76,6 @@
 .ux-globe-particle-section,
 .ux-final-particle-section {
   padding: 0 8%;
-
-  @include respond(laptop) {
-    min-height: 140vh;
-  }
-
-  @include respond(tablet) {
-    min-height: 115vh;
-    padding: 0 24px;
-  }
 }
 
 .ux-globe-particle-section {
@@ -142,14 +131,6 @@
     font-size: 18px;
     line-height: 1.72;
   }
-
-  @include respond(laptop) {
-    width: min(520px, 80vw);
-  }
-
-  @include respond(tablet) {
-    width: 100%;
-  }
 }
 
 .ux-final-frame {
@@ -177,10 +158,6 @@
     justify-self: end;
     margin-right: 3vw;
   }
-
-  @include respond(tablet) {
-    display: none;
-  }
 }
 
 .ux-particle-pathways {
@@ -195,10 +172,6 @@
       rgba(2, 6, 23, 0.96) 34%,
       rgba(2, 6, 23, 1) 100%
     );
-
-  @include respond(tablet) {
-    padding-top: 100px;
-  }
 }
 
 .particle-story-spacer,
@@ -213,98 +186,130 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@include respond(laptop) {
+  .ux-globe-particle-section,
+  .ux-final-particle-section {
+    min-height: 140vh;
+  }
+
+  .ux-particle-context {
+    width: min(520px, 80vw);
+  }
+}
+
+@media (max-width: 1024px) {
   .particle-stage {
-    overflow-x: clip;
+    overflow: hidden;
   }
 
   .canvasWrap {
-    height: 100svh;
-    min-height: 620px;
-    max-height: 760px;
-    opacity: 0.88;
-    contain: paint;
-
-    &::after {
-      background:
-        radial-gradient(
-          circle at 50% 50%,
-          transparent 0%,
-          rgba(2, 6, 23, 0.1) 42%,
-          rgba(2, 6, 23, 0.5) 100%
-        ),
-        linear-gradient(
-          180deg,
-          rgba(2, 6, 23, 0.28) 0%,
-          rgba(2, 6, 23, 0.06) 42%,
-          rgba(2, 6, 23, 0.4) 100%
-        );
-    }
+    display: none;
   }
 
   .ux-globe-particle-section,
   .ux-final-particle-section {
-    min-height: 150vh;
+    min-height: auto;
     padding: 0 24px;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .ux-globe-particle-section {
+    padding-top: 92px;
+    padding-bottom: 86px;
   }
 
   .ux-final-particle-section {
-    min-height: 165vh;
+    padding-top: 58px;
+    padding-bottom: 92px;
   }
 
   .ux-particle-context {
-    top: 12vh;
+    position: relative;
+    top: auto;
     width: 100%;
-    max-width: 100%;
+    max-width: 720px;
     padding: 0;
+  }
 
-    &::before {
-      width: 56px;
-      margin-bottom: 20px;
-    }
+  .ux-particle-context h2 {
+    max-width: 100%;
+    font-size: clamp(36px, 7vw, 54px);
+    line-height: 1;
+    letter-spacing: -2.4px;
+  }
 
-    .section-kicker {
-      margin-bottom: 18px;
-    }
-
-    h2 {
-      max-width: 100%;
-      font-size: clamp(34px, 10.5vw, 44px);
-      line-height: 0.98;
-      letter-spacing: -2px;
-    }
-
-    p {
-      max-width: 100%;
-      margin-top: 20px;
-      font-size: 15.5px;
-      line-height: 1.62;
-    }
+  .ux-particle-context p {
+    max-width: 620px;
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.62;
   }
 
   .ux-final-frame {
-    height: 100svh;
-    min-height: 620px;
-    pointer-events: none;
+    display: none;
+  }
+
+  .ux-final-label {
+    display: none;
   }
 
   .ux-particle-pathways {
-    padding-top: 82px;
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ux-globe-particle-section,
+  .ux-final-particle-section {
+    padding-inline: 20px;
+  }
+
+  .ux-globe-particle-section {
+    padding-top: 78px;
+    padding-bottom: 72px;
+  }
+
+  .ux-final-particle-section {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  .ux-particle-context::before {
+    width: 56px;
+    margin-bottom: 20px;
+  }
+
+  .ux-particle-context .section-kicker {
+    margin-bottom: 16px;
+    font-size: 10px;
+    letter-spacing: 1.8px;
+  }
+
+  .ux-particle-context h2 {
+    font-size: clamp(32px, 9.6vw, 44px);
+    line-height: 1.02;
+    letter-spacing: -1.8px;
+  }
+
+  .ux-particle-context p {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.58;
+  }
+
+  .ux-particle-pathways {
+    padding-top: 24px;
   }
 }
 
 @media (max-width: 480px) {
-  .canvasWrap {
-    min-height: 590px;
-    opacity: 0.82;
-  }
-
   .ux-globe-particle-section {
-    min-height: 138vh;
+    padding-top: 70px;
+    padding-bottom: 62px;
   }
 
   .ux-final-particle-section {
-    min-height: 150vh;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }

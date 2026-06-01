@@ -434,12 +434,12 @@ function createGlobeShape(globeX = DESKTOP_PARTICLE_CONFIG.globeX, radius = DESK
 
 function useResponsiveParticleConfig() {
   const [isCompact, setIsCompact] = useState(() =>
-    typeof window === "undefined" ? false : window.innerWidth <= 768
+      typeof window === "undefined" ? false : window.innerWidth <= 1024
   );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsCompact(window.innerWidth <= 768);
+      setIsCompact(window.innerWidth <= 1024);
     };
 
     handleResize();

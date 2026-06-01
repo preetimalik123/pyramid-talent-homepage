@@ -118,10 +118,6 @@ const CardTrack = styled(motion.div)`
   will-change: transform;
 
   @media (max-width: 1180px) {
-    bottom: 72px;
-  }
-
-  @media (max-width: 800px) {
     position: relative;
     left: auto;
     bottom: auto;
@@ -184,7 +180,7 @@ const ProofCard = styled.article`
     font-size: 13px;
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1180px) {
     width: 100%;
     min-height: auto;
 
