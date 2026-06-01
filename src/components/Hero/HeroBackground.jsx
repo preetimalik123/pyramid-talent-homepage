@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 function createHorizontalLineLayer({
@@ -201,24 +201,49 @@ function ClothMesh() {
   strength={1.2}
   mouseStrength={1.6}
 />
-  <HorizontalFlowLines
-  width={100}
-  height={13}
-  columns={120}
-  rows={70}
-  color="#c4b5fd"
-  opacity={0.0}
-  position={[.2, 0, -4]}
-  scale={[1.45, 1.25, 1]}
-  speed={0.7}
-  strength={0.7}
-  mouseStrength={0}
-/>
+
     </>
   );
 }
 
+
+function useIsMobileViewport(maxWidth = 768) {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window === "undefined" ? false : window.innerWidth <= maxWidth
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= maxWidth);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, [maxWidth]);
+
+  return isMobile;
+}
+
 export default function HeroBackground() {
+  const isMobile = useIsMobileViewport();
+
+  if (isMobile) {
+    return (
+      <div className="pt-hero-mobile-gradient" aria-hidden="true">
+        <span className="pt-hero-mobile-gradient__orb pt-hero-mobile-gradient__orb--blue" />
+        <span className="pt-hero-mobile-gradient__orb pt-hero-mobile-gradient__orb--violet" />
+        <span className="pt-hero-mobile-gradient__grid" />
+      </div>
+    );
+  }
+
   return (
     <div className="pt-hero-canvas">
       <Canvas
@@ -228,11 +253,14 @@ export default function HeroBackground() {
         }}
         dpr={[1, 1.5]}
         gl={{
-          antialias: true,
+          antialias: false,
           alpha: true,
           powerPreference: "high-performance",
         }}
-       dpr={[1, 1.35]} gl={{ antialias: false, powerPreference: "high-performance" }}>
+        onCreated={({ gl }) => {
+          gl.setClearAlpha(0);
+        }}
+      >
         <fog attach="fog" args={["#071028", 12, 28]} />
 
         <ambientLight intensity={0.35} />

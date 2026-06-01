@@ -1,8 +1,3 @@
-/* =========================================================
-   PYRAMID TALENT HERO — CLEAN SCSS
-   Uses pt-hero class names to avoid old .hero / .hero-content conflicts.
-========================================================= */
-
 .pt-hero {
   position: relative;
   isolation: isolate;
@@ -419,7 +414,6 @@
   }
 }
 
-/* Hero button polish */
 .pt-hero-actions {
   align-items: center;
 }
@@ -449,5 +443,160 @@
     width: 100%;
     min-width: 0;
     min-height: 54px;
+  }
+}
+.pt-hero-mobile-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 16% 82%,
+      rgba(37, 99, 235, 0.58) 0%,
+      rgba(37, 99, 235, 0.34) 18%,
+      rgba(30, 64, 175, 0.14) 38%,
+      transparent 62%
+    ),
+    radial-gradient(
+      circle at 78% 28%,
+      rgba(96, 165, 250, 0.16) 0%,
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 82% 74%,
+      rgba(124, 58, 237, 0.15) 0%,
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      #020617 0%,
+      #020817 42%,
+      #05122a 70%,
+      #082f72 100%
+    );
+}
+
+.pt-hero-mobile-gradient::before {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -180px;
+  right: -180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.12), transparent 70%);
+  filter: blur(90px);
+  opacity: 1;
+}
+
+.pt-hero-mobile-gradient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 6, 23, 0.98) 0%,
+      rgba(2, 6, 23, 0.9) 30%,
+      rgba(2, 6, 23, 0.55) 54%,
+      rgba(2, 6, 23, 0.2) 78%,
+      rgba(2, 6, 23, 0.1) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(2, 6, 23, 0.72) 0%,
+      rgba(2, 6, 23, 0.22) 48%,
+      rgba(37, 99, 235, 0.16) 100%
+    );
+}
+
+.pt-hero-mobile-gradient__orb {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.pt-hero-mobile-gradient__orb--blue {
+  left: -18%;
+  bottom: -34%;
+  width: 920px;
+  height: 620px;
+  background: radial-gradient(
+    circle,
+    rgba(37, 99, 235, 0.56) 0%,
+    rgba(37, 99, 235, 0.26) 34%,
+    rgba(37, 99, 235, 0.07) 58%,
+    transparent 74%
+  );
+  filter: blur(42px);
+  opacity: 0.82;
+}
+
+.pt-hero-mobile-gradient__orb--violet {
+  right: -22%;
+  bottom: 12%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.18) 0%,
+    rgba(124, 58, 237, 0.08) 45%,
+    transparent 72%
+  );
+  filter: blur(52px);
+  opacity: 0.7;
+}
+
+.pt-hero-mobile-gradient__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.12) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 52% 52%, black, transparent 74%);
+}
+
+@media (min-width: 769px) {
+  .pt-hero-mobile-gradient {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .pt-hero-mobile-gradient::before {
+    width: 420px;
+    height: 420px;
+    top: -150px;
+    right: -170px;
+    filter: blur(72px);
+  }
+
+  .pt-hero-mobile-gradient__orb--blue {
+    left: -70%;
+    bottom: -28%;
+    width: 720px;
+    height: 520px;
+    filter: blur(38px);
+  }
+
+  .pt-hero-mobile-gradient__orb--violet {
+    right: -58%;
+    bottom: 8%;
+    width: 420px;
+    height: 420px;
+    filter: blur(48px);
+  }
+
+  .pt-hero-mobile-gradient__grid {
+    background-size: 44px 44px;
+    opacity: 0.1;
   }
 }

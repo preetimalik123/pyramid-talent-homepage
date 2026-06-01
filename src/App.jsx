@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import Footer from "./components/Footer";
 import Hero from "./components/Hero/Hero";
@@ -26,8 +26,34 @@ const ParticleScene = lazy(() => import("./components/ParticleScene"));
 const IndustriesTabs = lazy(() => import("./components/IndustriesTabs"));
 const HorizontalProof = lazy(() => import("./components/HorizontalProof"));
 
+function useIsCompactViewport(maxWidth = 768) {
+  const [isCompact, setIsCompact] = useState(() =>
+    typeof window === "undefined" ? false : window.innerWidth <= maxWidth
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsCompact(window.innerWidth <= maxWidth);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, [maxWidth]);
+
+  return isCompact;
+}
+
+
 export default function App() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const isCompactViewport = useIsCompactViewport();
 
   return (
     <div className="app">
@@ -41,10 +67,12 @@ export default function App() {
           className="particle-stage"
           aria-label="Pyramid Talent workforce delivery story"
         >
-          {!prefersReducedMotion && (
-            <Suspense fallback={null}>
-              <ParticleScene />
-            </Suspense>
+          {!prefersReducedMotion && !isCompactViewport && (
+            <LazyOnVisible rootMargin="250px" fallback={null}>
+              <Suspense fallback={null}>
+                <ParticleScene />
+              </Suspense>
+            </LazyOnVisible>
           )}
 
           <IntroSection />
@@ -63,7 +91,7 @@ export default function App() {
         <OurServicesPremium />
 
         <LazyOnVisible
-          rootMargin="900px"
+          rootMargin="500px"
           fallback={<div className="section-loader" aria-hidden="true" />}
         >
           <Suspense fallback={<div className="section-loader" aria-hidden="true" />}>
@@ -72,7 +100,7 @@ export default function App() {
         </LazyOnVisible>
 
         <LazyOnVisible
-          rootMargin="900px"
+          rootMargin="500px"
           fallback={<div className="section-loader" aria-hidden="true" />}
         >
           <Suspense fallback={<div className="section-loader" aria-hidden="true" />}>

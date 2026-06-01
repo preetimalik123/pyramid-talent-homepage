@@ -212,10 +212,6 @@
 .particle-final-label:not(.ux-final-label) {
   display: none;
 }
-/* =========================================================
-   MOBILE PARTICLE RESPONSIVENESS PATCH
-   Keeps desktop behavior same, centers particle concepts on phones.
-========================================================= */
 
 @media (max-width: 768px) {
   .particle-stage {
